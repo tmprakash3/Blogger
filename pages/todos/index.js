@@ -42,6 +42,15 @@ export const getServerSideProps = async () => {
     const result = await axios.get('http://jsonplaceholder.typicode.com/todos');
     const todos = result.data.splice(0, 10);
 
+    if (!result.data) {
+        return {
+          redirect: {
+            destination: '/404',
+            notFound: true,
+          },
+        }
+      }
+
     return {
         props: { todos }
     }
